@@ -1,58 +1,40 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <!-- Album Card -->
-          <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <img class="w-full h-56 object-cover" src="https://picsum.photos/seed/picsum/200/300" alt="Album Cover">
-            <div class="p-4">
-              <h2 class="text-xl font-bold text-gray-800">Album Title</h2>
-              <p class="text-gray-600">Artist Name</p>
-            </div>
-          </div>
+<body>
+  <header>
+    <nav>
+      <a href="../">SoundBlog</a>
+    </nav>
+    <div class='title-header'>
+      <i class="fab fa-spotify"></i>
+      <h2>SoundBlog</h2>
+    </div>
+    <div class='message-search'>
+      <p>Albums {{artist}}</p>
+    </div>
+  </header>
+  <div class='artists-container'>
+    {{#each albums}}
+      <div class='artist-container'>
+        <img class='artist-img' src = {{}}>
+        <div>
+          <h3 class='artist-name'>{{}}</h3>
+          <button class='button-view-albums'><a href ="/tracks/{{this.id}}?album={{this.name}}&artist={{artist}}" method = "GET">View Tracks</a></button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</body>
 
-          <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <img class="w-full h-56 object-cover" src="https://picsum.photos/seed/picsum/200/300" alt="Album Cover">
-            <div class="p-4">
-              <h2 class="text-xl font-bold text-gray-800">Album Title</h2>
-              <p class="text-gray-600">Artist Name</p>
-            </div>
-          </div>
-
-          <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <img class="w-full h-56 object-cover" src="https://picsum.photos/seed/picsum/200/300" alt="Album Cover">
-            <div class="p-4">
-              <h2 class="text-xl font-bold text-gray-800">Album Title</h2>
-              <p class="text-gray-600">Artist Name</p>
-            </div>
-          </div>
-
-          <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <img class="w-full h-56 object-cover" src="https://picsum.photos/seed/picsum/200/300" alt="Album Cover">
-            <div class="p-4">
-              <h2 class="text-xl font-bold text-gray-800">Song Title</h2>
-              <p class="text-gray-600">Artist Name</p>
-            </div>
-          </div>
-
-          <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <img class="w-full h-56 object-cover" src="https://picsum.photos/seed/picsum/200/300" alt="Album Cover">
-            <div class="p-4">
-              <h2 class="text-xl font-bold text-gray-800">Song Title</h2>
-              <p class="text-gray-600">Artist Name</p>
-            </div>
-          </div>
-
-          <div class="bg-white overflow-hidden shadow-md rounded-lg">
-            <img class="w-full h-56 object-cover" src="https://picsum.photos/seed/picsum/200/300" alt="Album Cover">
-            <div class="p-4">
-              <h2 class="text-xl font-bold text-gray-800">Song Title</h2>
-              <p class="text-gray-600">Artist Name</p>
-            </div>
-          </div>
-
-    <footer class="footer">
-      <h2>Made by The Heroku Heroes 🤘🏻</h2>
-      <p>
-        &copy; 2023
-      </p>
-    </footer>   
-
+<div class='message-search'>
+      <p>Artists "{{artist}}":</p>
+    </div>
+  <div class='artists-container'>
+    {{#each artists}}
+      <div class='artist-container'>
+        <img class='artist-img' src = {{}}>
+        <div>
+          <h3 class='artist-name'>{{}}</h3>
+          <button class='button-view-albums'><a href ="/albums/{{this.id}}?artist={{this.name}}" method = "GET" name='artist'>View Albums</a></button>
+        </div>
 </div>
+    {{/each}}
+

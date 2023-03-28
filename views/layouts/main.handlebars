@@ -9,18 +9,35 @@
 </head>
 
 <body>
-  <div class = "navbar">
+  <div class="flex justify-between items-center">
+
       <ul>
         <li><a href="/">SoundBlog</a></li>
-        <li><a href="/">Home</a></li>
+        
+ {{#if logged_in}}
+       <li><a href="/">Home</a></li>
         <li><a href="/">Music</a></li>
         <li><a href="/">Contact</a></li>         
         <li><a id="/">Sign up</a></li>
         <p></p>
+        {{else}}
+        <li><a href="/signup">Sign up</a></li>
+        {{/if}}
+      </ul>
+  </div>
     <div>
       {{{ body }}}
     </div>
-
+{{#if logged_in}}
+  <script src="/"></script>
+  {{/if}}
+<script src = "/"></script>
+<footer class="footer">
+      <h2>Made by The Heroku Heroes 🤘🏻</h2>
+      <p>
+        &copy; 2023
+      </p>
+    </footer>   
 
 </body>
 </html>
