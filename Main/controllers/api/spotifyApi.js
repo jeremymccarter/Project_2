@@ -1,6 +1,13 @@
 const axios = require("axios");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+
 dotenv.config()
+//const artistSearch=document.getElementById("artistSearch")
+
+//artistSearch.addEventListener("keyup", e => {  const searchString = e.target.value;
+//  console.log(searchString)}
+//);
+
 
 //axios.request(options).then(function (response) {
   //console.log(response.data);
@@ -9,6 +16,9 @@ dotenv.config()
 //});
 
 async function spotifyApi() {
+ 
+ 
+
   const options = {
     method: 'GET',
     url: 'https://spotify23.p.rapidapi.com/artists/',
@@ -27,8 +37,10 @@ async function spotifyApi() {
     return null
   }
 
+  }
 
-}
+
+
 //BE SURE TO KEEP THINGS ASYNC
 
 
