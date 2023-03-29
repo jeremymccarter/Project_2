@@ -5,21 +5,26 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
+     const userData = await User.findByPk(
+      req.session.user_id
+      // {include: [
+      //   {
+      //     model: User,
+      //     attributes: ['name'],
+      //   },
+      // ]}
+      
+    );
+    if (!userData){
+      res.status(404).json("No user data found")
+    }
 
     // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
+    const favorites = userData.favorites.map((favorite) => favorite.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      projects, 
+      favorites, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
