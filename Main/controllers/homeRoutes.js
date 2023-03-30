@@ -1,52 +1,69 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Favorite, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
+    // Get all favorites and JOIN with user data
      const userData = await User.findByPk(
-      req.session.user_id
+      req.session.user_id,{
+        attributes: ["firstName", "lastName"],
+        raw: true,
+      }
+      
       // {include: [
       //   {
       //     model: User,
       //     attributes: ['name'],
       //   },
       // ]}
-      
+    
     );
     if (!userData){
-      res.status(404).json("No user data found")
+      return res.redirect("/login")
     }
+    console.log(userData)
+
+    const favoriteData = await Favorite.findAll({
+      where: {
+        user_id: req.session.user_id
+      },
+      include:{
+        model: User, 
+        attributes: ['firstName']
+      }
+    })
 
     // Serialize data so the template can read it
-    const favorites = userData.favorites.map((favorite) => favorite.get({ plain: true }));
+    const favorites = favoriteData.map((favorite) => favorite.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      favorites, 
+      favorites,
+      user: userData, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
-router.get('/project/:id', async (req, res) => {
+router.get('/favorite/:id', async (req, res) => {
   try {
-    const projectData = await Project.findByPk(req.params.id, {
+    const favoriteData = await Favorite.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['firstName'],
         },
       ],
     });
 
-    const project = projectData.get({ plain: true });
+    const favorite = favoriteData.get({ plain: true });
 
-    res.render('project', {
-      ...project,
+    res.render('favorite', {
+      ...favorite,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -60,7 +77,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Favorite }],
     });
 
     const user = userData.get({ plain: true });
@@ -84,4 +101,10 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+router.get('/signup', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  
+
+  res.render('signup');
+});
 module.exports = router;

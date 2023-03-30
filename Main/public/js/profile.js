@@ -1,14 +1,14 @@
 const newFormHandler = async (event) => {
   event.preventDefault();
 
-  const name = document.querySelector('#project-name').value.trim();
-  const needed_funding = document.querySelector('#project-funding').value.trim();
-  const description = document.querySelector('#project-desc').value.trim();
+  const artistName = document.querySelector('#artist-name').value.trim();
+  
+  const favoriteSong = document.querySelector('#song-name').value.trim();
 
-  if (name && needed_funding && description) {
-    const response = await fetch(`/api/projects`, {
+  if (artistName && favoriteSong) {
+    const response = await fetch(`/api/favorites`, {
       method: 'POST',
-      body: JSON.stringify({ name, needed_funding, description }),
+      body: JSON.stringify({ artistName, favoriteSong}),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -26,7 +26,7 @@ const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
-    const response = await fetch(`/api/projects/${id}`, {
+    const response = await fetch(`/api/favorites/${id}`, {
       method: 'DELETE',
     });
 
