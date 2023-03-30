@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{name}}!</h2>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Create a Favorite</h3>
+
+    <form class="form new-project-form">
+      <div class="form-group">
+        <label for="project-name">Artist Name:</label>
+        <input class="form-input" type="text" id="artist-name" name="artist-name" />
+      </div>
+      
+    <div class="form-group">
+        <label for="project-desc">Song Name</label>
+        <textarea class="form-input" id="song-name" name="song-name"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+
+  {{#if favorites.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Favorites:</h3>
+
+    {{#each favorites as |favorite|}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/favorite/{{favorite.id}}">{{favorite.favoriteSong}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{favorite.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+
+<script src="/js/profile.js"></script>
