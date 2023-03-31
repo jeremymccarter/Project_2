@@ -19,7 +19,7 @@
         <textarea class="form-input" id="song-name" name="song-name"></textarea>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">add to favorites</button>
       </div>
     </form>
   </div>
@@ -34,7 +34,7 @@
         <h4><a href="/favorite/{{favorite.id}}">{{favorite.favoriteSong}}</a></h4>
       </div>
       <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{favorite.id}}">DELETE</button>
+        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"data-id="{{favorite.id}}">delete post</button>
       </div>
     </div>
     {{/each}}
