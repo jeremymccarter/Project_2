@@ -38,11 +38,12 @@ router.get('/', async (req, res) => {
     const favorites = favoriteData.map((favorite) => favorite.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
+    res.render('homepage', {
+      ...userData,
       favorites,
-      user: userData, 
-      logged_in: req.session.logged_in 
-    });
+      logged_in: true
+    })
+
   } catch (err) {
     console.log(err)
     res.status(500).json(err);
@@ -107,4 +108,15 @@ router.get('/signup', (req, res) => {
 
   res.render('signup');
 });
+
+router.get('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.redirect('/')
+    });
+  } else {
+    res.redirect('/')
+  }
+});
+
 module.exports = router;

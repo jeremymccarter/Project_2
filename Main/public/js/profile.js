@@ -1,5 +1,8 @@
-const newFormHandler = async (event) => {
+
+const newFavoriteHandler = async (event) => {
   event.preventDefault();
+
+  
 
   const artistName = document.querySelector('#artist-name').value.trim();
   
@@ -38,10 +41,44 @@ const delButtonHandler = async (event) => {
   }
 };
 
-document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
+const searchFormHandler = async (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  const searchTerm = document.querySelector('#search-form input').value.trim();
+  const page = 0
+  console.log(searchTerm);
+  const response = await fetch(`/api/albums/spotify?q=${searchTerm}&p=${page}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/html',
+    },
+  });
+  
+  if (response.ok) {
+    response.text().then((spotifyResults)=>{
+      const searchResults = document.querySelector('.search-results')
+      const doc = document.createElement('div')
+      doc.innerHTML = spotifyResults.trim()
+      if (searchResults) {
+        searchResults.removeChild(searchResults.firstChild)
+        searchResults.appendChild(doc.firstChild)
+      }
+    })
+  }
+  //still need to get the text content of the search and pass that into a fetch post to an api endpoint
+}
 
-document
-  .querySelector('.project-list')
-  .addEventListener('click', delButtonHandler);
+const newProjectForm = document.querySelector('.new-project-form')
+if (newProjectForm) {
+  newProjectForm.addEventListener('submit', newFavoriteHandler);
+}
+
+const projectList = document.querySelector('.project-list')
+if (projectList) {
+  projectList.addEventListener('click', delButtonHandler);
+}
+
+const searchForm = document.querySelector('#search-form')
+if (searchForm) {
+  searchForm.addEventListener('submit', searchFormHandler);
+}
