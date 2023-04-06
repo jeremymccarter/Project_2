@@ -1,0 +1,21 @@
+<h2>Hello, {{firstName}}</h2>
+
+<!-- Loop over each object in the projects array -->
+{{#each favorites as |favorite| }}
+<div class="row mb-4 project">
+  <div class="col-md-5">
+    <h2>
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+      {{{get_emoji}}}
+      <a href="/favorite/{{favorite.id}}">{{favorite.favoriteSong}}</a>
+    </h2>
+   
+    <p>Created by {{favorite.user.firstName}} on {{format_date favorite.date_created}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{favorite.artistName}}
+    </p>
+  </div>
+</div>
+{{/each}}
